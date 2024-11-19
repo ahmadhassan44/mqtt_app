@@ -38,6 +38,7 @@ dependencies:
   mqtt_client: ^10.5.1
   another_telephony: ^0.3.0
   flutter_bloc: ^8.1.6
+  fluttertoast: ^8.2.8
 
 dev_dependencies:
   flutter_test:
