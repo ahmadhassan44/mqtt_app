@@ -13,6 +13,6 @@ class MqttApp extends StatelessWidget {
     );
   }
 }
-void main(){
+void main() async{
   runApp(const MqttApp());
 }
