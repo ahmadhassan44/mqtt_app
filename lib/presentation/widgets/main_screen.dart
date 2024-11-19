@@ -4,8 +4,10 @@ import 'package:mqtt_app/presentation/cubits/main_screen/main_screen_cubit.dart'
 
 class MainScreenWidget extends StatelessWidget {
   final Map<String, bool> flags;
+  final TextEditingController brokerUrlController = TextEditingController();
+  final TextEditingController subscribeController = TextEditingController();
 
-  const MainScreenWidget(this.flags, {super.key});
+  MainScreenWidget(this.flags, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,9 @@ class MainScreenWidget extends StatelessWidget {
           child: Column(
             children: [
               const Expanded(child: SizedBox()),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: brokerUrlController,
+                decoration: const InputDecoration(
                   labelText: 'Enter broker URL',
                 ),
               ),
@@ -30,8 +33,9 @@ class MainScreenWidget extends StatelessWidget {
               ),
               _buildConnectButton(context),
               const Expanded(child: SizedBox()),
-              const TextField(
-                decoration: InputDecoration(
+               TextField(
+                 controller: subscribeController,
+                decoration: const InputDecoration(
                   labelText: 'Enter Topic to Subscribe',
                 ),
               ),
@@ -47,9 +51,9 @@ class MainScreenWidget extends StatelessWidget {
 
   Widget _buildConnectButton(BuildContext context) {
     if (flags['connecting'] == true) {
-      return ElevatedButton(
+      return const ElevatedButton(
         onPressed: null,
-        child: const Text("Connecting"),
+        child: Text("Connecting"),
       );
     } else if (flags['connected'] == true) {
       return ElevatedButton(
@@ -61,7 +65,9 @@ class MainScreenWidget extends StatelessWidget {
     } else {
       return ElevatedButton(
         onPressed: () {
-          context.read<MainCubit>().connect();
+          //get the url from field here and pass it to connect
+          final brokerUrl = brokerUrlController.text;
+          context.read<MainCubit>().connect(brokerUrl);
         },
         child: const Text("Connect"),
       );
@@ -70,9 +76,9 @@ class MainScreenWidget extends StatelessWidget {
 
   Widget _buildSubscribeButton(BuildContext context) {
     if (flags['subscribing'] == true) {
-      return ElevatedButton(
+      return const ElevatedButton(
         onPressed: null,
-        child: const Text("Subscribing"),
+        child: Text("Subscribing"),
       );
     } else if (flags['subscribed'] == true) {
       return ElevatedButton(
@@ -84,14 +90,15 @@ class MainScreenWidget extends StatelessWidget {
     } else if (flags['connected'] == true) {
       return ElevatedButton(
         onPressed: () {
-          context.read<MainCubit>().subscribe();
+          final topic = subscribeController.text;
+          context.read<MainCubit>().subscribe(topic);
         },
         child: const Text("Subscribe"),
       );
     } else {
-      return ElevatedButton(
+      return const ElevatedButton(
         onPressed: null,
-        child: const Text("Subscribe"),
+        child: Text("Subscribe"),
       );
     }
   }

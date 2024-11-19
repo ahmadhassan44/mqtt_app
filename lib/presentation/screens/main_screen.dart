@@ -18,42 +18,42 @@ class _MainScreenState extends State<MainScreen> {
     return BlocBuilder<MainCubit, MainScreenState>(
       builder: (context, state) {
         if (state is MainScreenInitial) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'connected': false,
               'subscribed': false,
             },
           );
         } else if (state is MainScreenConnected) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'connected': true,
               'subscribed': false,
             },
           );
         } else if (state is MainScreenDisconnected) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'connected': false,
               'subscribed': false,
             },
           );
         } else if (state is MainScreenSubscribed) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'connected': true,
               'subscribed': true,
             },
           );
         } else if (state is MainScreenUnsubscribed) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'connected': true,
               'subscribed': false,
             },
           );
         } else if (state is MainScreenConnecting) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'connecting': true,
               'connected': false,
@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
             },
           );
         } else if (state is MainScreenDisconnecting) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'disconnecting': true,
               'connected': false,
@@ -69,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
             },
           );
         } else if (state is MainScreenSubscribing) {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'subscribing': true,
               'connected': true,
@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
             },
           );
         } else {
-          return const MainScreenWidget(
+          return MainScreenWidget(
             {
               'unsubscribing': true,
               'connected': true,

@@ -4,14 +4,14 @@ import 'package:mqtt_app/presentation/cubits/main_screen/main_screen_states.dart
 class MainCubit extends Cubit<MainScreenState> {
   MainCubit() : super(MainScreenInitial());
 
-  void connect() {
+  void connect(String brokerUrl) {
     emit(MainScreenConnecting());
     Future.delayed(const Duration(seconds: 2), () {
       emit(MainScreenConnected());
     });
   }
 
-  void subscribe() {
+  void subscribe(String topic) {
     emit(MainScreenSubscribing());
     Future.delayed(const Duration(seconds: 2), () {
       emit(MainScreenSubscribed());
