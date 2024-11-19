@@ -67,7 +67,7 @@ class MainScreenWidget extends StatelessWidget {
         onPressed: () {
           //get the url from field here and pass it to connect
           final brokerUrl = brokerUrlController.text;
-          context.read<MainCubit>().connect(brokerUrl);
+          context.read<MainCubit>().connect("36c174c79c1941569c7bafce9fa8fc63.s1.eu.hivemq.cloud:8883");
         },
         child: const Text("Connect"),
       );
