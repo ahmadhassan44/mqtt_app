@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mqtt_app/presentation/cubits/main_screen/main_screen_cubit.dart';
-import 'package:mqtt_app/presentation/widgets/main_screen.dart';
+import 'package:mqtt_app/presentation/widgets/main_screen_widget.dart';
 
 import '../cubits/main_screen/main_screen_states.dart';
 
