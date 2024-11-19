@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mqtt_app/presentation/cubits/main_screen/main_screen_cubit.dart';
 import 'package:mqtt_app/presentation/screens/main_screen.dart';
 
 class MqttApp extends StatelessWidget {
@@ -6,10 +8,13 @@ class MqttApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MQTT App',
-      home: MainScreen(),
+    return BlocProvider<MainCubit>(
+      create: (context) => MainCubit(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'MQTT App',
+        home: MainScreen(),
+      ),
     );
   }
 }

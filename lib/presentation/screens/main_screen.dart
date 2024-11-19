@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mqtt_app/presentation/cubits/main_screen/main_screen_cubit.dart';
+import 'package:mqtt_app/presentation/widgets/main_screen.dart';
+
+import '../cubits/main_screen/main_screen_states.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -10,38 +15,77 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('MQTT App'),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
-        child: Center(
-          child: Column(
-            children: [
-              const Expanded(child: SizedBox()),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Enter broker URL',
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
-              ElevatedButton(onPressed: (){}, child: const Text("Connect")),
-              const Expanded(child: SizedBox()),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Enter Topic to Subscribe',
-                ),
-              ),
-              ElevatedButton(onPressed: (){}, child: const Text("Subscribe")),
-              const Expanded(child: SizedBox()),
-
-
-            ],
-          ),
-        ),
-      ),
+    return BlocBuilder<MainCubit, MainScreenState>(
+      builder: (context, state) {
+        if (state is MainScreenInitial) {
+          return const MainScreenWidget(
+            {
+              'connected': false,
+              'subscribed': false,
+            },
+          );
+        } else if (state is MainScreenConnected) {
+          return const MainScreenWidget(
+            {
+              'connected': true,
+              'subscribed': false,
+            },
+          );
+        } else if (state is MainScreenDisconnected) {
+          return const MainScreenWidget(
+            {
+              'connected': false,
+              'subscribed': false,
+            },
+          );
+        } else if (state is MainScreenSubscribed) {
+          return const MainScreenWidget(
+            {
+              'connected': true,
+              'subscribed': true,
+            },
+          );
+        } else if (state is MainScreenUnsubscribed) {
+          return const MainScreenWidget(
+            {
+              'connected': true,
+              'subscribed': false,
+            },
+          );
+        } else if (state is MainScreenConnecting) {
+          return const MainScreenWidget(
+            {
+              'connecting': true,
+              'connected': false,
+              'subscribed': false,
+            },
+          );
+        } else if (state is MainScreenDisconnecting) {
+          return const MainScreenWidget(
+            {
+              'disconnecting': true,
+              'connected': false,
+              'subscribed': false,
+            },
+          );
+        } else if (state is MainScreenSubscribing) {
+          return const MainScreenWidget(
+            {
+              'subscribing': true,
+              'connected': true,
+              'subscribed': false,
+            },
+          );
+        } else {
+          return const MainScreenWidget(
+            {
+              'unsubscribing': true,
+              'connected': true,
+              'subscribed': false,
+            },
+          );
+        }
+      },
     );
   }
 }
